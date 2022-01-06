@@ -1,5 +1,7 @@
-#include "usefull_functions.h"
+#include <stdio.h>
 
+#include "usefull_functions.h"
+#include "max_fields_length.h"
 
 
 void* askMemory(int nb_octets) {
@@ -58,4 +60,18 @@ int countChar(char* chaine, char toCount) {
         }
     }
     return count_spaces;
+}
+
+
+int countLinesInFile(FILE** file) {
+
+    int nb_lines = 0;
+    char read[FILE_MAX_LINE_LENGTH] = "";
+    while(fgets(read, FILE_MAX_LINE_LENGTH, *file) != NULL){
+        nb_lines++;
+    }
+
+    rewind(*file);
+
+    return nb_lines;
 }

@@ -39,7 +39,7 @@ int nb_args = countChar(stringInput, ' ') + 1; // + 1 car il y a deux espaces ma
 char* splitted[nb_args];
 
 // Splitter la chaine stringInput
-split(test, &separator, splitted);
+split(test, separator, splitted);
 
 // Afficher le résultat
 for (int i = 0; i < nb_args; ++i) {
@@ -60,3 +60,7 @@ int countChar(char* chaine, char toCount);
 
 
 
+/*
+ * Conte le nombre de lignes dans une fichier texte.
+ */
+int countLinesInFile(FILE** file);
