@@ -19,7 +19,7 @@ void fillClient(struct Client* client, char* client_info[]) {
 
 
 
-void fillClientArray(struct Client clients[], FILE** clientListing) {
+void fillClientArray(struct Client* clients, FILE** clientListing) {
     char client_info[FILE_MAX_LINE_LENGTH] = "";
     char* splitted_info[7];
 
@@ -62,8 +62,34 @@ void displayLine(struct Client* client, int clientNb) {
     */
 }
 
-void displayArray(struct Client* clients[], int arraySize) {
-    for (int i = 0; i < arraySize; ++i) {
-        displayLine(clients[i], i + 1);
+
+
+void displayArray(struct Client* clients, int arraySize) {
+    int index = 0;
+    for (struct Client* i = clients; i < clients + arraySize; ++i) {
+        displayLine(i, index + 1);
+        index++;
     }
+}
+
+
+
+struct Client* loadFile(int* nbLines, char* path, FILE** file) {
+    openFile(path, "r", file, true);
+    if (file == NULL) {
+        return NULL;
+    }
+
+    *nbLines = countLinesInFile(file);
+
+    struct Client* clientsArray = malloc(*nbLines * sizeof(struct Client));
+    if (clientsArray == NULL) {
+        return NULL;
+    }
+
+    fillClientArray(clientsArray, file);
+
+    fclose(*file);
+
+    return clientsArray;
 }

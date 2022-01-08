@@ -14,3 +14,5 @@
         + FILE_MAX_PROFESSION_LENGTH                  \
     )
 
+#define MAX_USER_INPUT_LENGTH 150
+#define MAX_PATH_LENGTH 50

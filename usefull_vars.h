@@ -1,6 +1,0 @@
-#ifndef SAE_S1_01_02_USEFULL_VARS_H
-#define SAE_S1_01_02_USEFULL_VARS_H
-
-#endif //SAE_S1_01_02_USEFULL_VARS_H
-
-

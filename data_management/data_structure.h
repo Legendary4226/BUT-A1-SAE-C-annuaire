@@ -33,4 +33,11 @@ void displayLine(struct Client* client, int clientNb);
 /*
  * Permet d'afficher correctement les informations des clients référencé dans le tableau.
  */
-void displayArray(struct Client* clients[], int arraySize);
+void displayArray(struct Client* clients, int arraySize);
+
+
+
+/*
+ * Permet de charger un fichier dans une liste de pointeurs de structures.
+ */
+struct Client* loadFile(int* nbLines, char* path, FILE** file);

@@ -21,6 +21,11 @@ int parseCmd(char* userInput, struct commande* command, struct commande* command
     for (int cmd_id = 0; cmd_id < nb_commands; ++cmd_id) {
         compareStr = strcmp(splittedInput[0], commandsTemplate[cmd_id].name);
         if (compareStr == 0){
+            if (nb_args == 1) {
+                printf("Vous n'avez saisie aucun argument.\n");
+                return 0;
+            }
+
             // On a trouvé la commande, ajouter son nom dans la structure
             command->name = commandsTemplate[cmd_id].name;
             command->argsNumber = commandsTemplate[cmd_id].argsNumber;

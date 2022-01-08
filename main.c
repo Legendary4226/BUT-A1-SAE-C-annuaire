@@ -10,7 +10,7 @@
 
 
 int main() {
-    struct commande commandes[3] = {
+    struct commande commandes[4] = {
             {"help", 1,
                 {"-cmdName"}
              },
@@ -19,37 +19,77 @@ int main() {
                 },
             {"delete", 6,
              {"-name", "-surname", "-city", "-codepostal", "-phone", "-email"}
+            },
+            {"load", 1,
+                    {"-path"}
             }
     };
     int nb_commands_templates = sizeof(commandes)/ sizeof(struct commande);
 
-    /*
-    char test[100] = "add -name aa -phone 07401511 -email aadedf -city fhurbf";
 
-    struct commande commandeTemp;
-    int resultParsing = parseCmd(test, &commandeTemp, commandes, nb_commands_templates);
+    FILE* annuaire = NULL;
+    struct Client* clients_array = NULL;
+    int nbClients;
+
+    char path[MAX_PATH_LENGTH];
+    char* userInput[MAX_USER_INPUT_LENGTH];
+    struct commande* userInputCommand = NULL;
+    int resultParsing;
+
+    bool fileLoaded = false;
+    bool exitCommand = false;
+    bool skip = false;
+
+    do {
+        skip = false;
+
+        printf("\nEnter command>");
+        askUser(MAX_USER_INPUT_LENGTH, userInput);
+
+        if (strcmp(userInput, "exit") == 0) {
+            exitCommand = true;
+            skip = true;
+        }
+
+        if (!skip) {
+            resultParsing = parseCmd(userInput, userInputCommand, commandes, nb_commands_templates);
+
+            if (resultParsing == 0) {
+                skip = true;
+            }
+            if (resultParsing == 1) {
+                printf("Commande acceptée !\n");
+            }
+        }
+
+        if (fileLoaded) {
+            displayArray(clients_array, nbClients);
+        }
+
+    } while(!exitCommand);
+
+    printf("Fin de programme.");
+
+    /*
+    clients_array = loadFile(&nbClients, path, &annuaire);
+
+    if (clients_array == NULL) {
+        printf("Erreur durant le chargement du fichier.");
+    }
+
+    displayArray(clients_array, nbClients);
      */
 
-    FILE* annuaire;
-    openFile("../annuaire5000.csv", "r", &annuaire, true);
-
-
-    int nb_lines_annuaire = countLinesInFile(&annuaire);
-    if (nb_lines_annuaire > 12891) {
-        printf("Il y a plus de 12891 lignes /!\\");
-    }
-    struct Client clients_array[nb_lines_annuaire];
+    /*
+    struct Client clients_array[] = reload("ddd", &annuaire);
+    // MAX 12891 éléments, pk ??
     struct Client* clients_array_pointers[nb_lines_annuaire];
 
-    fillClientArray(clients_array, &annuaire);
 
-    int i = 0;
-    for (struct Client* address = clients_array; address < clients_array + nb_lines_annuaire; ++address) {
-        clients_array_pointers[i] = address;
-        i++;
-    }
+    loadFileData(&annuaire, clients_array, clients_array_pointers, nb_lines_annuaire);
 
     displayArray(clients_array_pointers, nb_lines_annuaire);
+     */
 
     return 0;
 }
