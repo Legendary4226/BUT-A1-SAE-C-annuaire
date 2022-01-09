@@ -4,13 +4,12 @@
 
 
 #include "max_fields_length.h"
-#include "command_handling.h"
 #include "usefull_functions.h"
-#include "data_management/data_structure.h"
+#include "command_handling.h"
 
 
 int main() {
-    struct commande commandes[4] = {
+    struct commande commandes[6] = {
             {"help", 1,
                 {"-cmdName"}
              },
@@ -20,21 +19,28 @@ int main() {
             {"delete", 6,
              {"-name", "-surname", "-city", "-codepostal", "-phone", "-email"}
             },
-            {"load", 1,
+            {"loadFile", 1,
                     {"-path"}
+            },
+            {
+                "display", 0,
+                    {}
+            },
+            {
+                "filter", 2,
+                    {"-champ", "-value"}
             }
     };
     int nb_commands_templates = sizeof(commandes)/ sizeof(struct commande);
 
 
-    FILE* annuaire = NULL;
+    FILE* file = NULL;
     struct Client* clients_array = NULL;
-    int nbClients;
+    int nbClients = 0;
 
-    char path[MAX_PATH_LENGTH];
-    char* userInput[MAX_USER_INPUT_LENGTH];
-    struct commande* userInputCommand = NULL;
-    int resultParsing;
+    char userInput[MAX_USER_INPUT_LENGTH];
+    struct commande userInputCommand;
+    int resultParsing = 0;
 
     bool fileLoaded = false;
     bool exitCommand = false;
@@ -43,7 +49,7 @@ int main() {
     do {
         skip = false;
 
-        printf("\nEnter command>");
+        printf("\nEnter command> ");
         askUser(MAX_USER_INPUT_LENGTH, userInput);
 
         if (strcmp(userInput, "exit") == 0) {
@@ -52,20 +58,23 @@ int main() {
         }
 
         if (!skip) {
-            resultParsing = parseCmd(userInput, userInputCommand, commandes, nb_commands_templates);
+            resultParsing = parseCmd(userInput, &userInputCommand, commandes, nb_commands_templates);
 
             if (resultParsing == 0) {
                 skip = true;
             }
-            if (resultParsing == 1) {
-                printf("Commande acceptée !\n");
+            if (resultParsing == 1 && fileLoaded) {
+                commandHandler(&userInputCommand, &file, &nbClients, &clients_array);
+            }
+            if (resultParsing == 1 && strcmp(userInputCommand.name, "loadFile") == 0) {
+                commandHandler(&userInputCommand, &file, &nbClients, &clients_array);
+                fileLoaded = true;
             }
         }
 
-        if (fileLoaded) {
-            displayArray(clients_array, nbClients);
+        if (file != NULL) {
+            fileLoaded = true;
         }
-
     } while(!exitCommand);
 
     printf("Fin de programme.");

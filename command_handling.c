@@ -1,11 +1,6 @@
 #include "command_handling.h"
 #include "usefull_functions.h"
 
-#include <string.h>
-#include <stdbool.h>
-#include <stdio.h>
-
-
 
 
 int parseCmd(char* userInput, struct commande* command, struct commande* commandsTemplate, int nb_commands) {
@@ -21,16 +16,19 @@ int parseCmd(char* userInput, struct commande* command, struct commande* command
     for (int cmd_id = 0; cmd_id < nb_commands; ++cmd_id) {
         compareStr = strcmp(splittedInput[0], commandsTemplate[cmd_id].name);
         if (compareStr == 0){
-            if (nb_args == 1) {
-                printf("Vous n'avez saisie aucun argument.\n");
-                return 0;
-            }
-
             // On a trouvé la commande, ajouter son nom dans la structure
             command->name = commandsTemplate[cmd_id].name;
             command->argsNumber = commandsTemplate[cmd_id].argsNumber;
 
             // Maintenant vérifier les arguments
+
+            if (command->argsNumber == 0) {
+                return 1;
+            }
+            if (nb_args == 1) {
+                printf("Vous n'avez saisie aucun argument.\n");
+                return 0;
+            }
 
             int check_arg_id = 1;
             char* to_check;
@@ -138,18 +136,27 @@ int parseCmd(char* userInput, struct commande* command, struct commande* command
 }
 
 
-void commandHandler(struct commande* command) {
+void commandHandler(struct commande* command, FILE** file, int* nbClients, struct Client** clientsArray) {
 
-    if (strcmp(command->name, "add") == 0) {
-        //add_client(command);
+    bool commandFound = false;
+    if (strcmp(command->name, "loadFile") == 0) {
+        *clientsArray = cmdLoadFile(nbClients, *clientsArray, file, command->args[0]);
+        commandFound = true;
     }
-    if (strcmp(command->name, "delete") == 0) {
-
+    if (strcmp(command->name, "display") == 0 && !commandFound) {
+        displayArray(*clientsArray, *nbClients);
+        commandFound = true;
     }
-    if (strcmp(command->name, "help") == 0) {
-
+    if (strcmp(command->name, "filter") == 0 && !commandFound) {
+        cmdFilter(nbClients, *clientsArray, command->args[0], command->args[1]);
+        commandFound = true;
     }
-    if (strcmp(command->name, "modify_client") == 0) {
+    if (strcmp(command->name, "...") == 0 && !commandFound) {
 
+        commandFound = true;
+    }
+    if (strcmp(command->name, "....") == 0 && !commandFound) {
+
+        commandFound = true;
     }
 }

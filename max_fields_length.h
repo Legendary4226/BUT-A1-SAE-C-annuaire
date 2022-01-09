@@ -6,7 +6,7 @@
 #define FILE_MAX_PHONE_LENGTH 15
 
 #define FILE_MAX_LINE_LENGTH ( \
-        FILE_MAX_NAME_LENGTH \
+        2 * FILE_MAX_NAME_LENGTH \
         + FILE_MAX_CITY_LENGTH                        \
         + FILE_MAX_CODEPOSTAL_LENGTH                  \
         + FILE_MAX_PHONE_LENGTH                       \
@@ -14,5 +14,4 @@
         + FILE_MAX_PROFESSION_LENGTH                  \
     )
 
-#define MAX_USER_INPUT_LENGTH 150
-#define MAX_PATH_LENGTH 50
+#define MAX_USER_INPUT_LENGTH (2 * FILE_MAX_LINE_LENGTH)

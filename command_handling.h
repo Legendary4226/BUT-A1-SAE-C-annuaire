@@ -1,3 +1,9 @@
+#include <string.h>
+#include <stdbool.h>
+#include <stdio.h>
+
+#include "commands/commands.h"
+
 #define MAX_COMMAND_ARGS 7
 #define MAX_ARG_LENGTH 70
 
@@ -23,4 +29,4 @@ int parseCmd(char* userInput, struct commande* command, struct commande* command
 /*
  * Envoie les données analysée a la bonne fonction.
  */
-void commandHandler(struct commande* command);
+void commandHandler(struct commande* command, FILE** file, int* nbClients, struct Client** clientsArray);

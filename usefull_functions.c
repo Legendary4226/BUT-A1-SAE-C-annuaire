@@ -1,4 +1,8 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+#include <malloc.h>
+#include <assert.h>
 
 #include "usefull_functions.h"
 #include "max_fields_length.h"
