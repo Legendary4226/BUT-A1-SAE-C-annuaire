@@ -76,7 +76,7 @@ void displayArray(struct Client* clients, int arraySize) {
 
 
 struct Client* loadFile(int* nbLines, char* path, FILE** file) {
-    openFile(path, "r", file, true);
+    openFile(path, "r", file, false);
     if (file == NULL) {
         return NULL;
     }

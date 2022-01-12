@@ -151,8 +151,8 @@ void commandHandler(struct commande* command, FILE** file, int* nbClients, struc
         cmdFilter(nbClients, *clientsArray, command->args[0], command->args[1]);
         commandFound = true;
     }
-    if (strcmp(command->name, "...") == 0 && !commandFound) {
-
+    if (strcmp(command->name, "add") == 0 && !commandFound) {
+        add(command, clientsArray, nbClients);
         commandFound = true;
     }
     if (strcmp(command->name, "....") == 0 && !commandFound) {
