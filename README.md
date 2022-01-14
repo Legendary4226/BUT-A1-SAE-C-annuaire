@@ -14,22 +14,12 @@
 --> Fichier display.h
 --> Fichier data_structure.c
 --> Fichier data_structure.h
--->
--->
--->
 ```
 
 ###Borie-Yanis
 ```
--->
--->
--->
--->
--->
--->
--->
--->
--->
--->
--->
+--> missingInfo.c
+--> add.c
+--> delete.c
+--> help.c
 ```

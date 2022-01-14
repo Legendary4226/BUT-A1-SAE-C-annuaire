@@ -4,7 +4,7 @@
 
 #include "commands/commands.h"
 
-#define MAX_COMMAND_ARGS 7
+#define MAX_COMMAND_ARGS 8
 #define MAX_ARG_LENGTH 70
 
 /*

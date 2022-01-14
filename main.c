@@ -9,15 +9,15 @@
 
 
 int main() {
-    struct commande commandes[6] = {
+    struct commande commandes[9] = {
             {"help", 1,
                 {"-cmdName"}
              },
-            {"add", 6,
-                {"-name", "-surname", "-city", "-codepostal", "-phone", "-email"}
+            {"add", 7,
+                {"-name", "-surname", "-city", "-codepostal", "-phone", "-email", "-profession"}
                 },
-            {"delete", 6,
-             {"-name", "-surname", "-city", "-codepostal", "-phone", "-email"}
+            {"delete", 1,
+             {"-lineNumber"}
             },
             {"loadFile", 1,
                     {"-path"}
@@ -29,6 +29,17 @@ int main() {
             {
                 "filter", 2,
                     {"-champ", "-value"}
+            },
+            {
+                "missingInfo", 0,
+                    {}
+            },
+            {
+                "save", 1,
+                    {"-fileName"}
+            },
+            {"alter", 8,
+                        {"-lineNumber", "-name", "-surname", "-city", "-codepostal", "-phone", "-email", "-profession"}
             }
     };
     int nb_commands_templates = sizeof(commandes)/ sizeof(struct commande);
@@ -66,9 +77,11 @@ int main() {
             if (resultParsing == 1 && fileLoaded) {
                 commandHandler(&userInputCommand, &file, &nbClients, &clients_array);
             }
-            if (resultParsing == 1 && strcmp(userInputCommand.name, "loadFile") == 0) {
+            if (resultParsing == 1 && strcmp(userInputCommand.name, "loadFile") == 0 || strcmp(userInputCommand.name, "help") == 0) {
                 commandHandler(&userInputCommand, &file, &nbClients, &clients_array);
-                fileLoaded = true;
+                if (strcmp(userInputCommand.name, "loadFile") == 0 && clients_array != NULL) {
+                    fileLoaded = true;
+                }
             }
         }
 

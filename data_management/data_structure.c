@@ -26,9 +26,23 @@ void fillClientArray(struct Client* clients, FILE** clientListing) {
 
     char separator = ',';
 
+    int i;
+
     int client_number = 0;
     while(feof(*clientListing) == 0) {
         fgets(client_info, FILE_MAX_LINE_LENGTH, *clientListing);
+
+        // Supprimer le retour à la ligne de fin de ligne
+        if (feof(*clientListing) == 0) {
+            i = 0;
+            while (i < FILE_MAX_LINE_LENGTH) {
+                if (client_info[i] == '\0') {
+                    client_info[i-1] = '\0';
+                }
+
+                i++;
+            }
+        }
 
         split(client_info, separator, splitted_info);
 
@@ -42,25 +56,23 @@ void fillClientArray(struct Client* clients, FILE** clientListing) {
 
 void displayLine(struct Client* client, int clientNb) {
     // Hardly optimized :
-    printf("%d | %s%*c%s%*c%s%*c%s%*c  %s%*c%s%*c %s", clientNb, client->first_name, FILE_MAX_NAME_LENGTH - strlen(client->first_name), ' ', client->last_name, FILE_MAX_NAME_LENGTH - strlen(client->last_name), ' ', client->email, FILE_MAX_EMAIL_LENGTH - strlen(client->email), ' ', client->phone, FILE_MAX_PHONE_LENGTH - strlen(client->phone), ' ', client->city, FILE_MAX_CITY_LENGTH - strlen(client->city), ' ', client->code_postal, FILE_MAX_CODEPOSTAL_LENGTH - strlen(client->code_postal), ' ', client->profession);
+    printf("%d | %s%*c%s%*c%s%*c%s%*c  %s%*c%s%*c %s\n", clientNb, client->first_name, FILE_MAX_NAME_LENGTH - strlen(client->first_name), ' ', client->last_name, FILE_MAX_NAME_LENGTH - strlen(client->last_name), ' ', client->email, FILE_MAX_EMAIL_LENGTH - strlen(client->email), ' ', client->phone, FILE_MAX_PHONE_LENGTH - strlen(client->phone), ' ', client->city, FILE_MAX_CITY_LENGTH - strlen(client->city), ' ', client->code_postal, FILE_MAX_CODEPOSTAL_LENGTH - strlen(client->code_postal), ' ', client->profession);
 
-    /*
-    printf("%d | ", clientNb);
+    //printf("%d | ", clientNb);
 
-    printf("%s%*c", client->first_name, FILE_MAX_NAME_LENGTH - strlen(client->first_name), ' ');
+    //printf("%s%*c", client->first_name, FILE_MAX_NAME_LENGTH - strlen(client->first_name), ' ');
 
-    printf("%s%*c", client->last_name, FILE_MAX_NAME_LENGTH - strlen(client->last_name), ' ');
+    //printf("%s%*c", client->last_name, FILE_MAX_NAME_LENGTH - strlen(client->last_name), ' ');
 
-    printf("%s%*c", client->email, FILE_MAX_EMAIL_LENGTH - strlen(client->email), ' ');
+    //printf("%s%*c", client->email, FILE_MAX_EMAIL_LENGTH - strlen(client->email), ' ');
 
-    printf("%s%*c", client->phone, FILE_MAX_PHONE_LENGTH - strlen(client->phone), ' ');
+    //printf("%s%*c", client->phone, FILE_MAX_PHONE_LENGTH - strlen(client->phone), ' ');
 
-    printf("%s%*c", client->city, FILE_MAX_CITY_LENGTH - strlen(client->city), ' ');
+    //printf("%s%*c", client->city, FILE_MAX_CITY_LENGTH - strlen(client->city), ' ');
 
-    printf("%s%*c", client->code_postal, FILE_MAX_CODEPOSTAL_LENGTH - strlen(client->code_postal), ' ');
+    //printf("%s%*c", client->code_postal, FILE_MAX_CODEPOSTAL_LENGTH - strlen(client->code_postal), ' ');
 
-    printf("%s", client->profession);
-    */
+    //printf("%s", client->profession);
 }
 
 

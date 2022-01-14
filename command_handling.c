@@ -1,3 +1,5 @@
+#include <time.h>
+
 #include "command_handling.h"
 #include "usefull_functions.h"
 
@@ -124,19 +126,23 @@ int parseCmd(char* userInput, struct commande* command, struct commande* command
 
                 // Ignorer les 1, simplement prendre les vides donc 0
                 if (args_found[i] == 0) {
-                    strcpy(command->args[i], "null");
+                    strcpy(command->args[i], "\0");
                 }
             }
 
             return 1;
         }
     }
-    printf("Commande inconnue.\n");
+    printf("Commande inconnue. Tapez 'help -cmdName list' pour obtenir les informations sur les commandes existantes.\n");
     return 0;
 }
 
 
 void commandHandler(struct commande* command, FILE** file, int* nbClients, struct Client** clientsArray) {
+
+    time_t startTime, endTime;
+    time(&startTime);
+
 
     bool commandFound = false;
     if (strcmp(command->name, "loadFile") == 0) {
@@ -152,11 +158,27 @@ void commandHandler(struct commande* command, FILE** file, int* nbClients, struc
         commandFound = true;
     }
     if (strcmp(command->name, "add") == 0 && !commandFound) {
-        add(command, clientsArray, nbClients);
+        *nbClients = add(clientsArray, nbClients, command->args[0], command->args[1], command->args[2], command->args[3], command->args[4], command->args[5], command->args[6]);
         commandFound = true;
     }
-    if (strcmp(command->name, "....") == 0 && !commandFound) {
+    if (strcmp(command->name, "missingInfo") == 0 && !commandFound) {
+        missingInfo(clientsArray, nbClients);
+        commandFound = true;
+    }
+    if (strcmp(command->name, "delete") == 0 && !commandFound) {
+        *nbClients = delete(clientsArray, nbClients, command->args[0]);
+        commandFound = true;
+    }
+    if (strcmp(command->name, "alter") == 0 && !commandFound) {
+        alter(clientsArray, nbClients, command->args[0], command->args[1], command->args[2], command->args[3], command->args[4], command->args[5], command->args[6], command->args[7]);
+        commandFound = true;
+    }
+    if (strcmp(command->name, "help") == 0 && !commandFound) {
+        help(command->args[0]);
+        commandFound = true;
+    }
 
-        commandFound = true;
-    }
+    time(&endTime);
+
+    printf("\nTemps d'execution : %f s.\n", difftime(endTime, startTime));
 }

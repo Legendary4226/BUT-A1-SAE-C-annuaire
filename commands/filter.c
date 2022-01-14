@@ -30,37 +30,37 @@ void cmdFilter(int* nbClients, struct Client* clientsArray, char* champ, char* v
     for (struct Client* client = clientsArray; client < clientsArray + *nbClients; ++client) {
         switch (champIndex) {
             case 0:
-                if (strcmp(value, client->first_name) == 0) {
+                if (strstr(client->first_name, value) != NULL) {
                     displayLine(client, clientNumber);
                     nbResults++;
                 }
                 break;
             case 1:
-                if (strcmp(value, client->last_name) == 0) {
+                if (strstr(client->last_name, value) != NULL) {
                     displayLine(client, clientNumber);
                     nbResults++;
                 }
                 break;
             case 2:
-                if (strcmp(value, client->city) == 0) {
+                if (strstr(client->city, value) != NULL) {
                     displayLine(client, clientNumber);
                     nbResults++;
                 }
                 break;
             case 3:
-                if (strcmp(value, client->code_postal) == 0) {
+                if (strstr(client->code_postal, value) != NULL) {
                     displayLine(client, clientNumber);
                     nbResults++;
                 }
                 break;
             case 4:
-                if (strcmp(value, client->phone) == 0) {
+                if (strstr(client->phone, value) != NULL) {
                     displayLine(client, clientNumber);
                     nbResults++;
                 }
                 break;
             case 5:
-                if (strcmp(value, client->email) == 0) {
+                if (strstr(client->email, value) != NULL) {
                     displayLine(client, clientNumber);
                     nbResults++;
                 }
