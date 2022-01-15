@@ -140,8 +140,8 @@ int parseCmd(char* userInput, struct commande* command, struct commande* command
 
 void commandHandler(struct commande* command, FILE** file, int* nbClients, struct Client** clientsArray) {
 
-    time_t startTime, endTime;
-    time(&startTime);
+    clock_t startTime, endTime;
+    startTime = clock();
 
 
     bool commandFound = false;
@@ -185,8 +185,12 @@ void commandHandler(struct commande* command, FILE** file, int* nbClients, struc
         triSelection(clientsArray, nbClients, command->args[0]);
         commandFound = true;
     }
+    if (strcmp(command->name, "clear") == 0 && !commandFound) {
+        clear();
+        commandFound = true;
+    }
 
-    time(&endTime);
+    endTime = clock();
 
-    printf("\nTemps d'execution : %f s.\n", difftime(endTime, startTime));
+    printf("\nTemps d'execution : %ld s.\n", (endTime - startTime) / CLOCKS_PER_SEC);
 }

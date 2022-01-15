@@ -9,7 +9,7 @@
 
 
 int main() {
-    struct commande commandes[10] = {
+    struct commande commandes[11] = {
             {"help", 1,
                 {"-cmdName"}
              },
@@ -44,6 +44,10 @@ int main() {
             {
                 "tri", 1,
                     {"-champ"}
+            },
+            {
+                "clear", 0,
+                    {}
             }
     };
     int nb_commands_templates = sizeof(commandes)/ sizeof(struct commande);

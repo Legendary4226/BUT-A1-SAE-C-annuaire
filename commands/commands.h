@@ -85,3 +85,10 @@ void triSelection(struct Client** clientsArray, int* nbClients, char* champStr);
  * La valeur de retour correspond à strcpm de string.h
  */
 int compareChamps(int champ, struct Client* client1, struct Client* client2);
+
+
+
+/*
+ * Permet d'afficher du vide.
+ */
+void clear();
