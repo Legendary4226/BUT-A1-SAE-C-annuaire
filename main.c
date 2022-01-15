@@ -9,7 +9,7 @@
 
 
 int main() {
-    struct commande commandes[9] = {
+    struct commande commandes[10] = {
             {"help", 1,
                 {"-cmdName"}
              },
@@ -40,6 +40,10 @@ int main() {
             },
             {"alter", 8,
                         {"-lineNumber", "-name", "-surname", "-city", "-codepostal", "-phone", "-email", "-profession"}
+            },
+            {
+                "tri", 1,
+                    {"-champ"}
             }
     };
     int nb_commands_templates = sizeof(commandes)/ sizeof(struct commande);
@@ -51,7 +55,7 @@ int main() {
 
     char userInput[MAX_USER_INPUT_LENGTH];
     struct commande userInputCommand;
-    int resultParsing = 0;
+    int resultParsing;
 
     bool fileLoaded = false;
     bool exitCommand = false;
@@ -91,27 +95,5 @@ int main() {
     } while(!exitCommand);
 
     printf("Fin de programme.");
-
-    /*
-    clients_array = loadFile(&nbClients, path, &annuaire);
-
-    if (clients_array == NULL) {
-        printf("Erreur durant le chargement du fichier.");
-    }
-
-    displayArray(clients_array, nbClients);
-     */
-
-    /*
-    struct Client clients_array[] = reload("ddd", &annuaire);
-    // MAX 12891 éléments, pk ??
-    struct Client* clients_array_pointers[nb_lines_annuaire];
-
-
-    loadFileData(&annuaire, clients_array, clients_array_pointers, nb_lines_annuaire);
-
-    displayArray(clients_array_pointers, nb_lines_annuaire);
-     */
-
     return 0;
 }

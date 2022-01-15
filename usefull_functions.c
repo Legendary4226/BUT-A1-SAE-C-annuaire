@@ -1,18 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include <malloc.h>
 #include <assert.h>
 
 #include "usefull_functions.h"
 #include "max_fields_length.h"
-
-
-void* askMemory(int nb_octets) {
-    void* assigned_adress = (void*) malloc(nb_octets);
-    assert(assigned_adress != NULL && "Memory Allocation Error on ask_memory function. ");
-    return assigned_adress;
-}
 
 void openFile(const char *path, const char *mode, FILE** file,bool assertIfFail) {
     // FILE** représente le pointer de FILE*, donc cela permet de modifier la valeur de FILE*

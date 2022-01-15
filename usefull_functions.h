@@ -1,10 +1,5 @@
 #include <stdbool.h>
 
-/*
- * Fonction permettant l'allocation de mémoire
- * Si l'allocation échoue, le programme s'arrête.
- */
-void* askMemory(int nb_octets);
 
 
 /*
@@ -15,11 +10,13 @@ void* askMemory(int nb_octets);
 void openFile(const char *path, const char *mode, FILE** file, bool assertIfFail);
 
 
+
 /*
  * Récupère l'entrée d'un utilisateur de taille spécifiée max_length
  * Enlève le caractère '\n' en fin de chaine pour le remplacer par un '\0'
  */
 void askUser(int max_length, char* chaine);
+
 
 
 /*
@@ -46,6 +43,7 @@ for (int i = 0; i < nb_args; ++i) {
 // simple
 // example
  */
+
 
 
 /*

@@ -177,6 +177,14 @@ void commandHandler(struct commande* command, FILE** file, int* nbClients, struc
         help(command->args[0]);
         commandFound = true;
     }
+    if (strcmp(command->name, "save") == 0 && !commandFound) {
+        save(clientsArray, nbClients, command->args[0]);
+        commandFound = true;
+    }
+    if (strcmp(command->name, "tri") == 0 && !commandFound) {
+        triSelection(clientsArray, nbClients, command->args[0]);
+        commandFound = true;
+    }
 
     time(&endTime);
 

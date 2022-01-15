@@ -58,6 +58,9 @@ void displayLine(struct Client* client, int clientNb) {
     // Hardly optimized :
     printf("%d | %s%*c%s%*c%s%*c%s%*c  %s%*c%s%*c %s\n", clientNb, client->first_name, FILE_MAX_NAME_LENGTH - strlen(client->first_name), ' ', client->last_name, FILE_MAX_NAME_LENGTH - strlen(client->last_name), ' ', client->email, FILE_MAX_EMAIL_LENGTH - strlen(client->email), ' ', client->phone, FILE_MAX_PHONE_LENGTH - strlen(client->phone), ' ', client->city, FILE_MAX_CITY_LENGTH - strlen(client->city), ' ', client->code_postal, FILE_MAX_CODEPOSTAL_LENGTH - strlen(client->code_postal), ' ', client->profession);
 
+
+    // Ce code affichait chaque informations une par une mais créer un seul printf est plus performant
+
     //printf("%d | ", clientNb);
 
     //printf("%s%*c", client->first_name, FILE_MAX_NAME_LENGTH - strlen(client->first_name), ' ');
